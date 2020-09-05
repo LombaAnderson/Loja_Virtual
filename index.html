@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #produtos,
+        #carrinho{
+            max-width: 900px;
+            margin: 0 auto;
+            padding:0 2%;
+            display: flex;   
+        }
+        #carrinho{
+            max-width: 900px;
+            margin: 0 auto;
+            padding:0 2%;
+            display: block;   
+        }
+        .produto-single{
+            width: 33.3%;
+            padding:0 20px;
+        }
+    </style>
+    <title>Loja virtual</title>
+</head>
+<h2>Vitrine :</h2>
+<body>
+    <div id = "produtos">
+ 
+    </div>
+    <h2>Carrinho :</h2>
+    <div id= "carrinho">
+  
+    </div>
+    <script>
+        const items = [
+            {
+                id: 0,
+                nome: 'camiseta',
+                img: '/img/camiseta.jpg',
+                quantidade: 0
+            },
+            {
+                id: 1,
+                nome: 'calça',
+                img: '/img/calca.jpg',
+                quantidade: 0
+            },
+            {
+                id: 2,
+                nome: 'sapato',
+                img: '/img/sapato.jpg',
+                quantidade: 0
+            },
+        ]
+
+      inicializarLoja = () => {
+          var containerProdutos = document.getElementById('produtos')
+          items.map((vaL)=>{
+              containerProdutos.innerHTML+= `
+             
+             <div class= "produto-single">
+             <img src="`+vaL.img+`" />
+             <p>`+vaL.nome+`</p>
+            <a key="`+vaL.id+`" href="#">Adicionar ao carrinho!<a/>
+            </div>
+              
+              `
+          })
+      }
+
+      inicializarLoja()
+      
+      atualizarCarrinho = () => {
+        var containerCarrinho = document.getElementById('carrinho')
+        containerCarrinho.innerHTML = "";
+          items.map((vaL)=>{
+              if(vaL.quantidade > 0){
+              containerCarrinho.innerHTML+= `
+             
+              <p>`+vaL.nome+` | quantidade: `+vaL.quantidade+`</p>
+              <hr>
+              `
+              }
+          })
+
+      }
+
+      var links =document.getElementsByTagName('a')
+
+      for(var i = 0; i< links.length; i++){
+          links[i].addEventListener("click", function(){
+          let key = this.getAttribute('key')
+          items[key].quantidade++
+          atualizarCarrinho()
+          return false
+          })
+      }
+
+    </script>
+
+</body>
+</html>
